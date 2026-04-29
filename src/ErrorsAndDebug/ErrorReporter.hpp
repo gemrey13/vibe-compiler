@@ -7,18 +7,18 @@
 
 namespace vibeCompiler::ErrorsAndDebug {
 
-    enum class LoxStatus { OK, ERROR };
+    enum class VibeStatus { OK, ERROR };
 
     class ErrorReporter {
       public:
         void clearErrors();
-        LoxStatus getStatus();
+        VibeStatus getStatus() const;
         void printToStdErr();
         void setError(int line, const std::string& message);
 
       private:
         std::vector<std::string> errorMessages;
-        LoxStatus status = LoxStatus::OK;
+        VibeStatus status = VibeStatus::OK;
     };
 
 } // namespace vibeCompiler::ErrorsAndDebug

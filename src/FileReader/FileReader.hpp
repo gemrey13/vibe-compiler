@@ -2,6 +2,7 @@
 #define VIBECOMPILER_FILEREADER_FILEREADER_H
 #pragma once
 
+
 #include <fstream>
 #include <string>
 
@@ -9,7 +10,7 @@ namespace vibeCompiler {
 
     class FileReader {
       public:
-        explicit FileReader(const std::string& filename);
+        FileReader(const std::string& filename, ErrorsAndDebug::ErrorReporter& reporter);
         ~FileReader();
 
         std::string readAll();
