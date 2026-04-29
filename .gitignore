@@ -1,0 +1,31 @@
+# --- Build Artifacts ---
+build/
+bin/
+out/
+*.o
+*.obj
+*.exe
+*.a
+*.lib
+*.so
+*.dll
+
+# --- CMake Generated Files ---
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+Makefile
+
+# --- IDE & Editor Specific ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- User/Local Configs ---
+*.user
+*.local
