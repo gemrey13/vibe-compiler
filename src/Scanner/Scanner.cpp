@@ -20,6 +20,7 @@ namespace vibeCompiler {
     void Scanner::scanToken() {
         char c = advance();
         switch (c) {
+        // Single-character tokens.
         case '(':
             addToken(TokenType::LEFT_PAREN);
             break;
@@ -51,7 +52,7 @@ namespace vibeCompiler {
             addToken(TokenType::STAR);
             break;
 
-        // Operators
+        // One or two character tokens.
         case '!':
             addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
             break;
@@ -83,6 +84,10 @@ namespace vibeCompiler {
             line++;
             break;
 
+        // Literals
+        case '"':
+            string();
+            break;
         default:
             errorReporter.setError(line, "Unexpected Character.");
             break;
@@ -95,6 +100,23 @@ namespace vibeCompiler {
 
     char Scanner::advance() {
         return source[current++];
+    }
+
+    void Scanner::string() {
+        while (peek() != '"' && !isAtEnd()) {
+            if (peek() == '\n')
+                line++;
+            advance();
+        }
+
+        if (isAtEnd()) {
+            errorReporter.setError(line, "Unterminated string.");
+            return;
+        }
+
+        advance();
+        std::string value = source.substr(start + 1, current - start - 2);
+        addToken(TokenType::STRING, value);
     }
 
     char Scanner::peek() {
