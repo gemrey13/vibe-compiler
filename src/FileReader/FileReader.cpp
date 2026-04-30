@@ -33,13 +33,8 @@ namespace vibeCompiler {
         return buffer;
     }
 
-    /*
-     * A ~ (tilde) before a function name means it is a Destructor. This runs automatically when the
-     * FileReader object is destroyed. It tells the operating system: "I'm done with this file, you
-     * can let other programs use it now."
-     */
     FileReader::~FileReader() {
         fileStream.close();
     }
 
-} // namespace vibeCompiler::FileReader
+} // namespace vibeCompiler

@@ -46,8 +46,8 @@ namespace vibeCompiler {
         void setError(int line, const std::string& message);
 
       private:
-        std::vector<std::string> errorMessages; // Stores the log of failures.
-        VibeStatus status = VibeStatus::OK;     // The internal flag for execution health.
+        std::vector<std::string> errorMessages;   // Stores the log of failures.
+        VibeStatus status = VibeStatus::OK;       // The internal flag for execution health.
     };
 
 } // namespace vibeCompiler

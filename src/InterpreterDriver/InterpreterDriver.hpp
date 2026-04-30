@@ -5,6 +5,11 @@
 #include <string>
 #include <vector>
 
+
+/**
+ * @brief The vibeCompiler namespace contains all core components of the 
+ * custom programming language "vibe."
+ */
 namespace vibeCompiler {
 
     class ErrorReporter;
