@@ -216,10 +216,21 @@ namespace vibeCompiler {
     }
 
     const std::map<std::string, TokenType> Scanner::lookUpTable = {
-        {"and", TokenType::AMEN},     {"class", TokenType::BLUEPRINT},   {"else", TokenType::BRUH},
-        {"false", TokenType::CAP},    {"fun", TokenType::FINNA},         {"for", TokenType::LOOPIN},
-        {"if", TokenType::VIBECHECK}, {"nil", TokenType::MID},           {"or", TokenType::LOWKEY},
-        {"print", TokenType::FLEX},   {"return", TokenType::ITS_GIVING}, {"super", TokenType::GOAT},
-        {"this", TokenType::ME},      {"true", TokenType::NO_CAP},       {"var", TokenType::LET},
-        {"while", TokenType::COOKIN}};
-} // namespace vibeCompiler
+        {"amen", TokenType::AMEN},             // instead of "and"
+        {"blueprint", TokenType::BLUEPRINT},   // instead of "class"
+        {"bruh", TokenType::BRUH},             // instead of "else"
+        {"cap", TokenType::CAP},               // instead of "false"
+        {"finna", TokenType::FINNA},           // instead of "fun"
+        {"loopin", TokenType::LOOPIN},         // instead of "for"
+        {"vibecheck", TokenType::VIBECHECK},   // instead of "if"
+        {"mid", TokenType::MID},               // instead of "nil"
+        {"lowkey", TokenType::LOWKEY},         // instead of "or"
+        {"flex", TokenType::FLEX},             // instead of "print"
+        {"its_giving", TokenType::ITS_GIVING}, // instead of "return"
+        {"goat", TokenType::GOAT},             // instead of "super"
+        {"me", TokenType::ME},                 // instead of "this"
+        {"no_cap", TokenType::NO_CAP},         // instead of "true"
+        {"let", TokenType::LET},               // instead of "var"
+        {"cookin", TokenType::COOKIN}          // instead of "while"
+    };
+}

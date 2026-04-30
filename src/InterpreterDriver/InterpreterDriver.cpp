@@ -32,7 +32,7 @@ namespace vibeCompiler {
                         )"
                   << std::endl;
         while (true) {
-            std::cout << "> ";
+            std::cout << "> " << std::flush;
             if (!std::getline(std::cin, line)) {
                 break; // Stop if the input stream is closed
             }
