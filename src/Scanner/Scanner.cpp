@@ -5,8 +5,8 @@
 #include <map>
 
 namespace vibeCompiler {
-    Scanner::Scanner(const std::string& p_source, ErrorReporter& errorReporter)
-        : source(p_source), errorReporter(errorReporter) {};
+    Scanner::Scanner(const std::string& p_source, ErrorReporter& p_errorReporter)
+        : source(p_source), errorReporter(p_errorReporter) {};
 
     std::vector<Token> Scanner::scanTokens() {
         while (!isAtEnd()) {
@@ -69,7 +69,7 @@ namespace vibeCompiler {
 
         case '/':
             if (match('/')) {
-                while (peek() != '\n' && isAtEnd())
+                while (peek() != '\n' && !isAtEnd())
                     advance();
             } else {
                 addToken(TokenType::SLASH);
@@ -128,7 +128,7 @@ namespace vibeCompiler {
     }
 
     bool Scanner::isAlpha(char c) {
-        return (c >= 'a' && c <= 'z' || (c >= 'A' && c <= 'Z') || c == '_');
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_');
     }
 
     bool Scanner::isAlphaNumeric(char c) {
@@ -170,7 +170,7 @@ namespace vibeCompiler {
     char Scanner::peekNext() {
         if (current + 1 >= source.length())
             return '\0';
-        return source[current++];
+        return source[current + 1];
     }
 
     void Scanner::string() {
@@ -215,7 +215,7 @@ namespace vibeCompiler {
         tokens.emplace_back(type, text, literal, line);
     }
 
-    static const std::map<std::string, TokenType> lookUpTable{
+    const std::map<std::string, TokenType> Scanner::lookUpTable = {
         {"and", TokenType::AMEN},     {"class", TokenType::BLUEPRINT},   {"else", TokenType::BRUH},
         {"false", TokenType::CAP},    {"fun", TokenType::FINNA},         {"for", TokenType::LOOPIN},
         {"if", TokenType::VIBECHECK}, {"nil", TokenType::MID},           {"or", TokenType::LOWKEY},

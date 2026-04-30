@@ -6,6 +6,9 @@
 
 namespace vibeCompiler {
 
+    InterpreterDriver::InterpreterDriver() {
+    }
+
     int InterpreterDriver::runScript(const std::string& filename) {
         vibeCompiler::FileReader fileReader(filename);
 
@@ -45,7 +48,7 @@ namespace vibeCompiler {
         std::vector<vibeCompiler::Token> tokens = scanner.scanTokens();
 
         // Add a check to see if errors were found during scanning
-        if (errorReporter.getStatus() == VibeStatus::ERROR) {
+        if (errorReporter.getStatus() == vibeCompiler::VibeStatus::ERROR) {
             errorReporter.printError();
             errorReporter.clearErrors(); // Important for the Interactive Prompt (REPL)
             return;

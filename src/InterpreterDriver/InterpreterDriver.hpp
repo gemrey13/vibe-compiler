@@ -7,6 +7,8 @@
 
 namespace vibeCompiler {
 
+    class ErrorReporter;
+
     class InterpreterDriver {
       public:
         InterpreterDriver();
@@ -15,7 +17,7 @@ namespace vibeCompiler {
         void runCode(const std::string& source);
 
       private:
-        ErrorReporter errorReporter;
+        vibeCompiler::ErrorReporter errorReporter;
     };
 
 } // namespace vibeCompiler

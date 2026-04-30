@@ -4,24 +4,29 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 using vibeCompiler::Token;
 using vibeCompiler::TokenType;
 
 namespace vibeCompiler {
+
+    class ErrorReporter;
+
+
     class Scanner {
       public:
         Scanner(const std::string& p_source, ErrorReporter& errorReporter);
         std::vector<Token> scanTokens();
         void scanToken();
-        bool isAtEnd() {};
+        bool isAtEnd();
 
         char advance();
         void addToken(TokenType type);
         void addToken(TokenType type, Literal literal);
 
         bool match(char expected);
-        
+
         char peek();
         void string();
 
@@ -39,8 +44,8 @@ namespace vibeCompiler {
         ErrorReporter& errorReporter;
         static const std::map<std::string, TokenType> lookUpTable;
 
-        int start = 0;
-        int current = 0;
+        size_t start = 0;
+        size_t current = 0;
         int line = 1;
     };
 } // namespace vibeCompiler

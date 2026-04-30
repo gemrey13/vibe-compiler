@@ -5,7 +5,7 @@
 
 namespace vibeCompiler {
 
-    FileReader::FileReader(const std::string& filename) : filename(filename) {
+    FileReader::FileReader(const std::string& p_filename) : filename(p_filename) {
         fileStream.open(filename);
         if (!fileStream.is_open()) {
             std::cout << "Could not open source file: " << filename << std::endl;
