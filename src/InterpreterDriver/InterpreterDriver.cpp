@@ -1,5 +1,6 @@
 #include "InterpreterDriver.hpp"
 #include "FileReader/FileReader.hpp"
+#include "Scanner/Scanner.hpp"
 
 #include <iostream>
 
@@ -13,7 +14,7 @@ namespace vibeCompiler {
             return 65;
         }
 
-        // return runCode(code);
+        runCode(code);
         return 0;
     }
 
@@ -34,17 +35,17 @@ namespace vibeCompiler {
             }
             if (line == "exit")
                 break;
-            // runCode(line)
+            runCode(line);
         }
     }
 
     void runCode(const std::string& source) {
-        // Scanner scanner = new Scanner(source);
-        // List<Token> tokens =scanner.scanTokens();
+        vibeCompiler::Scanner scanner(source);
 
+        std::vector<vibeCompiler::Token> tokens = scanner.scanTokens();
 
-        // loop for (token in tokens) {
-        //     print token
-        // }
+        for (const auto& token : tokens) {
+            std::cout << token.toString() << std::endl;
+        }
     }
 } // namespace vibeCompiler
