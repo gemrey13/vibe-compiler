@@ -8,6 +8,7 @@ namespace vibeCompiler {
     Scanner::Scanner(const std::string& p_source, ErrorReporter& p_errorReporter)
         : source(p_source), errorReporter(p_errorReporter) {};
 
+    
     std::vector<Token> Scanner::scanTokens() {
         while (!isAtEnd()) {
             start = current;
@@ -18,6 +19,7 @@ namespace vibeCompiler {
         return tokens;
     }
 
+   
     void Scanner::scanToken() {
         char c = advance();
         switch (c) {
@@ -91,7 +93,7 @@ namespace vibeCompiler {
             string();
             break;
 
-            // Reserved Words and Identifiers
+        // Reserved Words and Identifiers
         case 'o':
             if (match('r')) {
                 addToken(TokenType::LOWKEY);

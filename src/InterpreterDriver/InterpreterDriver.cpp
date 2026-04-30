@@ -68,6 +68,7 @@ Type "exit" or press CTRL-C to exit.
             return;
         }
 
+        // Temporary - print tokens.
         for (const auto& token : tokens) {
             std::cout << token.toString() << std::endl;
         }
