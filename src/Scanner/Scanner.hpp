@@ -20,6 +20,10 @@ namespace vibeCompiler {
         void addToken(TokenType type);
         void addToken(TokenType type, Literal literal);
 
+        bool match(char expected);
+
+        char peek();
+
       private:
         const std::string& source;
         std::vector<Token> tokens;
