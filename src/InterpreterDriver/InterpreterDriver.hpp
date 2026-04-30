@@ -14,7 +14,7 @@ namespace vibeCompiler {
         void runPrompt();
 
       private:
-        void interpret(const std::string& source);
+        void runCode(const std::string& source);
     };
 
 } // namespace vibeCompiler

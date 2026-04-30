@@ -37,4 +37,14 @@ namespace vibeCompiler {
             // runCode(line)
         }
     }
+
+    void runCode(const std::string& source) {
+        // Scanner scanner = new Scanner(source);
+        // List<Token> tokens =scanner.scanTokens();
+
+
+        // loop for (token in tokens) {
+        //     print token
+        // }
+    }
 } // namespace vibeCompiler
