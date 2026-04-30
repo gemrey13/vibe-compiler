@@ -9,6 +9,11 @@ namespace vibeCompiler {
     InterpreterDriver::InterpreterDriver() {}
 
     int InterpreterDriver::runScript(const std::string& filename) {
+        if (filename.length() < 4 || filename.substr(filename.length() - 4) != ".yow") {
+            std::cout << "L + ratio + wrong file type: " << filename << std::endl;
+            std::cout << "Expected a .yow file, no cap." << std::endl;
+            return 64;
+        }
         vibeCompiler::FileReader fileReader(filename);
 
         std::string code = fileReader.readAll();
