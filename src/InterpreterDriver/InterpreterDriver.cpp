@@ -6,7 +6,7 @@
 namespace vibeCompiler {
 
     int InterpreterDriver::runScript(const std::string& filename) {
-        vibeCompiler::FileReader::FileReader fileReader(filename);
+        vibeCompiler::FileReader fileReader(filename);
 
         std::string code = fileReader.readAll();
         if (code.empty()) {

@@ -1,11 +1,9 @@
-#ifndef VIBECOMPILER_FILEREADER_FILEREADER_H
-#define VIBECOMPILER_FILEREADER_FILEREADER_H
 #pragma once
 
 #include <fstream>
 #include <string>
 
-namespace vibeCompiler::FileReader {
+namespace vibeCompiler {
 
     class FileReader {
       public:
@@ -19,6 +17,4 @@ namespace vibeCompiler::FileReader {
         std::ifstream fileStream;
     };
 
-} // namespace vibeCompiler
-
-#endif
+} // namespace vibeCompiler::FileReader

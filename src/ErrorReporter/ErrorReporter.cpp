@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace vibeCompiler::ErrorReporter {
+namespace vibeCompiler {
 
     void ErrorReporter::clearErrors() {
         errorMessages.clear();

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iterator>
 
-namespace vibeCompiler::FileReader {
+namespace vibeCompiler {
 
     FileReader::FileReader(const std::string& filename) : filename(filename) {
         fileStream.open(filename);

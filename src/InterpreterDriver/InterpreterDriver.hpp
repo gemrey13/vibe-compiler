@@ -1,5 +1,3 @@
-#ifndef VIBECOMPILER_INTERPRETERDRIVER_INTERPRETERDRIVER_H
-#define VIBECOMPILER_INTERPRETERDRIVER_INTERPRETERDRIVER_H
 #pragma once
 
 #include <string>
@@ -18,5 +16,3 @@ namespace vibeCompiler {
     };
 
 } // namespace vibeCompiler
-
-#endif

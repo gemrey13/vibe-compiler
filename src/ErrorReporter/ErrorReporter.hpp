@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace vibeCompiler::ErrorReporter {
+namespace vibeCompiler {
     enum struct VibeStatus { OK, ERROR };
 
     class ErrorReporter {
