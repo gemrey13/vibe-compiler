@@ -65,8 +65,6 @@ namespace vibeCompiler {
 
     void Scanner::addToken(TokenType type, Literal literal) {
         std::string text = source.substr(start, current - start);
-
-        std::string text = source.substr(start, current - start);
         tokens.emplace_back(type, text, literal, line);
     }
 } // namespace vibeCompiler
