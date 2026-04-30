@@ -88,6 +88,14 @@ namespace vibeCompiler {
         case '"':
             string();
             break;
+
+            // Reserved Words and Identifiers
+        case 'o':
+            if (match('r')) {
+                addToken(TokenType::LOWKEY);
+            }
+            break;
+
         default:
             if (isDigit(c)) {
                 number();
@@ -111,16 +119,21 @@ namespace vibeCompiler {
     }
 
     void Scanner::number() {
+
+        // Consume all digit
         while (isDigit(peek()))
             advance();
 
+        // Look for a fractional part
         if (peek() == '.' && isDigit(peekNext())) {
+            // Consume the "." and digits after that
             advance();
 
             while (isDigit(peek()))
                 advance();
         }
 
+        // add the token
         double value = std::stod(source.substr(start, current - start));
         addToken(TokenType::NUMBER, value);
     }
