@@ -113,22 +113,30 @@ namespace vibeCompiler {
         }
     }
 
-    void Scanner::identifier() {
-        while (isAlphaNumeric(peek()))
-            advance();
+    void Scanner::addToken(TokenType type) {
+        addToken(type, std::monostate{});
+    }
 
+    void Scanner::addToken(TokenType type, Literal literal) {
         std::string text = source.substr(start, current - start);
-        auto it = lookUpTable.find(text);
+        tokens.emplace_back(type, text, literal, line);
+    }
 
-        TokenType type;
-        if (it != lookUpTable.end()) {
-            // It's a keyword (like "VIBECHECK" or "AMEN")
-            type = it->second;
-        } else {
-            // It's just a user-defined variable name
-            type = TokenType::IDENTIFIER;
-        }
-        addToken(type);
+    bool Scanner::match(char expected) {
+        if (isAtEnd())
+            return false;
+        if (source[current] != expected)
+            return false;
+
+        current++;
+        return true;
+    }
+
+    bool Scanner::isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+    bool Scanner::isAtEnd() {
+        return current >= source.length();
     }
 
     bool Scanner::isAlpha(char c) {
@@ -139,16 +147,37 @@ namespace vibeCompiler {
         return isAlpha(c) || isDigit(c);
     }
 
-    bool Scanner::isAtEnd() {
-        return current >= source.length();
+    char Scanner::peek() {
+        if (isAtEnd())
+            return '\0';
+        return source[current];
+    }
+
+    char Scanner::peekNext() {
+        if (current + 1 >= source.length())
+            return '\0';
+        return source[current + 1];
     }
 
     char Scanner::advance() {
         return source[current++];
     }
 
-    bool Scanner::isDigit(char c) {
-        return c >= '0' && c <= '9';
+    void Scanner::string() {
+        while (peek() != '"' && !isAtEnd()) {
+            if (peek() == '\n')
+                line++;
+            advance();
+        }
+
+        if (isAtEnd()) {
+            errorReporter.setError(line, "Unterminated string.");
+            return;
+        }
+
+        advance();
+        std::string value = source.substr(start + 1, current - start - 2);
+        addToken(TokenType::STRING, value);
     }
 
     void Scanner::number() {
@@ -171,52 +200,22 @@ namespace vibeCompiler {
         addToken(TokenType::NUMBER, value);
     }
 
-    char Scanner::peekNext() {
-        if (current + 1 >= source.length())
-            return '\0';
-        return source[current + 1];
-    }
-
-    void Scanner::string() {
-        while (peek() != '"' && !isAtEnd()) {
-            if (peek() == '\n')
-                line++;
+    void Scanner::identifier() {
+        while (isAlphaNumeric(peek()))
             advance();
-        }
 
-        if (isAtEnd()) {
-            errorReporter.setError(line, "Unterminated string.");
-            return;
-        }
-
-        advance();
-        std::string value = source.substr(start + 1, current - start - 2);
-        addToken(TokenType::STRING, value);
-    }
-
-    char Scanner::peek() {
-        if (isAtEnd())
-            return '\0';
-        return source[current];
-    }
-
-    bool Scanner::match(char expected) {
-        if (isAtEnd())
-            return false;
-        if (source[current] != expected)
-            return false;
-
-        current++;
-        return true;
-    }
-
-    void Scanner::addToken(TokenType type) {
-        addToken(type, std::monostate{});
-    }
-
-    void Scanner::addToken(TokenType type, Literal literal) {
         std::string text = source.substr(start, current - start);
-        tokens.emplace_back(type, text, literal, line);
+        auto it = lookUpTable.find(text);
+
+        TokenType type;
+        if (it != lookUpTable.end()) {
+            // It's a keyword (like "VIBECHECK" or "AMEN")
+            type = it->second;
+        } else {
+            // It's just a user-defined variable name
+            type = TokenType::IDENTIFIER;
+        }
+        addToken(type);
     }
 
     const std::map<std::string, TokenType> Scanner::lookUpTable = {
@@ -237,4 +236,5 @@ namespace vibeCompiler {
         {"let", TokenType::LET},               // "var"
         {"cookin", TokenType::COOKIN}          // "while"
     };
+
 } // namespace vibeCompiler

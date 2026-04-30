@@ -13,37 +13,36 @@ namespace vibeCompiler {
 
     class ErrorReporter;
 
-
     class Scanner {
       public:
         Scanner(const std::string& p_source, ErrorReporter& errorReporter);
         std::vector<Token> scanTokens();
         void scanToken();
-        bool isAtEnd();
 
-        char advance();
         void addToken(TokenType type);
         void addToken(TokenType type, Literal literal);
 
         bool match(char expected);
-
-        char peek();
-        void string();
-
         bool isDigit(char c);
-        void number();
-        char peekNext();
-
-        void identifier();
+        bool isAtEnd();
         bool isAlpha(char c);
         bool isAlphaNumeric(char c);
+
+        char peek();
+        char peekNext();
+        char advance();
+
+        void string();
+        void number();
+        void identifier();
 
       private:
         const std::string& source;
         std::vector<Token> tokens;
-        ErrorReporter& errorReporter;
+
         static const std::map<std::string, TokenType> lookUpTable;
 
+        ErrorReporter& errorReporter;
         size_t start = 0;
         size_t current = 0;
         int line = 1;
