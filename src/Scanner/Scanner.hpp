@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Types/Token.hpp"
+#include "Token/Token.hpp"
 
 #include <iostream>
 #include <map>
