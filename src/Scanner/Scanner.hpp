@@ -24,7 +24,9 @@ namespace vibeCompiler {
          * the smallest meaningful sequences of characters (blobs).
          *
          * Example:
+         * 
          *   Code: var language = "vibe";
+         * 
          *   Lexemes: [var], [language], [=], ["vibe"], [;]
          *
          * @return std::vector<Token> A collection of identified tokens ending with VIBE_EOF.
