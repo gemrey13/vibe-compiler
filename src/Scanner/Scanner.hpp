@@ -29,10 +29,15 @@ namespace vibeCompiler {
         void number();
         char peekNext();
 
+        void identifier();
+        bool isAlpha(char c);
+        bool isAlphaNumeric(char c);
+
       private:
         const std::string& source;
         std::vector<Token> tokens;
         ErrorReporter& errorReporter;
+        static const std::map<std::string, TokenType> lookUpTable;
 
         int start = 0;
         int current = 0;

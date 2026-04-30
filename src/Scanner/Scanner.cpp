@@ -2,6 +2,7 @@
 #include "ErrorReporter/ErrorReporter.hpp"
 
 #include <iostream>
+#include <map>
 
 namespace vibeCompiler {
     Scanner::Scanner(const std::string& p_source, ErrorReporter& errorReporter)
@@ -99,11 +100,39 @@ namespace vibeCompiler {
         default:
             if (isDigit(c)) {
                 number();
+            } else if (isAlpha(c)) {
+                identifier();
             } else {
                 errorReporter.setError(line, "Unexpected Character.");
             }
             break;
         }
+    }
+
+    void Scanner::identifier() {
+        while (isAlphaNumeric(peek()))
+            advance();
+
+        std::string text = source.substr(start, current - start);
+        auto it = lookUpTable.find(text);
+
+        TokenType type;
+        if (it != lookUpTable.end()) {
+            // It's a keyword (like "VIBECHECK" or "AMEN")
+            type = it->second;
+        } else {
+            // It's just a user-defined variable name
+            type = TokenType::IDENTIFIER;
+        }
+        addToken(type);
+    }
+
+    bool Scanner::isAlpha(char c) {
+        return (c >= 'a' && c <= 'z' || (c >= 'A' && c <= 'Z') || c == '_');
+    }
+
+    bool Scanner::isAlphaNumeric(char c) {
+        return isAlpha(c) || isDigit(c);
     }
 
     bool Scanner::isAtEnd() {
@@ -185,4 +214,12 @@ namespace vibeCompiler {
         std::string text = source.substr(start, current - start);
         tokens.emplace_back(type, text, literal, line);
     }
+
+    static const std::map<std::string, TokenType> lookUpTable{
+        {"and", TokenType::AMEN},     {"class", TokenType::BLUEPRINT},   {"else", TokenType::BRUH},
+        {"false", TokenType::CAP},    {"fun", TokenType::FINNA},         {"for", TokenType::LOOPIN},
+        {"if", TokenType::VIBECHECK}, {"nil", TokenType::MID},           {"or", TokenType::LOWKEY},
+        {"print", TokenType::FLEX},   {"return", TokenType::ITS_GIVING}, {"super", TokenType::GOAT},
+        {"this", TokenType::ME},      {"true", TokenType::NO_CAP},       {"var", TokenType::LET},
+        {"while", TokenType::COOKIN}};
 } // namespace vibeCompiler
