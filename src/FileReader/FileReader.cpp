@@ -1,4 +1,4 @@
-#include "FileReader.hpp"
+#include "FileReader/FileReader.hpp"
 
 #include <iostream>
 #include <iterator>
@@ -29,9 +29,6 @@ namespace vibeCompiler {
 
         fileStream.seekg(0, std::ios::beg);   // Move "cursor" back to the start
         fileStream.read(buffer.data(), size); // Copy everything into our bucket
-
-
-        std::cout << "Buffer: " << buffer << std::endl;
 
         return buffer;
     }
