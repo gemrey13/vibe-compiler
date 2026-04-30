@@ -20,8 +20,8 @@ namespace vibeCompiler {
     }
 
     void ErrorReporter::setError(int line, const std::string& message) {
-        errorMessages.emplace_back("[Line " + std::to_string(line) + "] Error: " + message);
+        errorMessages.emplace_back("[Line " + std::to_string(line) + "] -Aura: " + message);
         status = VibeStatus::ERROR;
     }
 
-} // namespace vibeCompiler::ErrorReporter
+} // namespace vibeCompiler

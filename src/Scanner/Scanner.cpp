@@ -104,11 +104,10 @@ namespace vibeCompiler {
             } else if (isAlpha(c)) {
                 identifier();
             } else {
-                std::string msg = "Unexpected Character: '";
+                std::string msg = "Unexpected Main Character Vibes '";
                 msg += c;
-                msg += "' (Decimal ASCII: " + std::to_string((unsigned char)c) + ")";
+                msg += "' is mid.";
                 errorReporter.setError(line, msg);
-                // errorReporter.setError(line, "Unexpected Character.");
             }
             break;
         }

@@ -18,6 +18,7 @@ namespace vibeCompiler {
 
         std::string code = fileReader.readAll();
         if (code.empty()) {
+            std::cout << "File's ghosting us... (It's empty, bruh)" << std::endl;
             return 65;
         }
 
