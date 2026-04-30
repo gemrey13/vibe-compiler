@@ -13,7 +13,7 @@ int main(int argc, const char* argv[]) {
         return driver.runScript(argv[1]);
     }
 
-    // driver.runPrompt();
+    driver.runPrompt();
 
     return 0;
 }

@@ -1,16 +1,14 @@
 #include "FileReader.hpp"
-#include "ErrorsAndDebug/ErrorReporter.hpp"
 
+#include <iostream>
 #include <iterator>
-// #include "LoxError.h"
 
-namespace vibeCompiler {
+namespace vibeCompiler::FileReader {
 
-    FileReader::FileReader(const std::string& filename, ErrorsAndDebug::ErrorReporter& reporter)
-        : filename(filename) {
+    FileReader::FileReader(const std::string& filename) : filename(filename) {
         fileStream.open(filename);
         if (!fileStream.is_open()) {
-            reporter.setError(0, "Could not open source file: '" + filename + "'");
+            std::cout << "Could not open source file: " << filename << std::endl;
         }
     }
 
@@ -18,20 +16,30 @@ namespace vibeCompiler {
         if (!fileStream.is_open())
             return "";
 
-        fileStream.seekg(0, std::ios::end);
-        size_t size = fileStream.tellg();
+        fileStream.clear();
+        fileStream.seekg(0, std::ios::end); // Move "cursor" to the very end
+        std::streamsize size =
+            fileStream.tellg(); // Ask: "What position are you at?" for this instance in the last.
 
-        std::string buffer(size, ' ');
+        if (size <= 0)
+            return "";
 
-        // Seek back to start and read
-        fileStream.seekg(0, std::ios::beg);
-        fileStream.read(&buffer[0], size);
+        std::string buffer;
+        buffer.resize(static_cast<size_t>(size));
+
+        fileStream.seekg(0, std::ios::beg);   // Move "cursor" back to the start
+        fileStream.read(buffer.data(), size); // Copy everything into our bucket
 
         return buffer;
     }
 
+    /*
+     * A ~ (tilde) before a function name means it is a Destructor. This runs automatically when the
+     * FileReader object is destroyed. It tells the operating system: "I'm done with this file, you
+     * can let other programs use it now."
+     */
     FileReader::~FileReader() {
         fileStream.close();
     }
 
-} // namespace vibeCompiler
+} // namespace vibeCompiler::FileReader
