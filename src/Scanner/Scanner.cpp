@@ -89,7 +89,11 @@ namespace vibeCompiler {
             string();
             break;
         default:
-            errorReporter.setError(line, "Unexpected Character.");
+            if (isDigit(c)) {
+                number();
+            } else {
+                errorReporter.setError(line, "Unexpected Character.");
+            }
             break;
         }
     }
@@ -99,6 +103,31 @@ namespace vibeCompiler {
     }
 
     char Scanner::advance() {
+        return source[current++];
+    }
+
+    bool Scanner::isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+
+    void Scanner::number() {
+        while (isDigit(peek()))
+            advance();
+
+        if (peek() == '.' && isDigit(peekNext())) {
+            advance();
+
+            while (isDigit(peek()))
+                advance();
+        }
+
+        double value = std::stod(source.substr(start, current - start));
+        addToken(TokenType::NUMBER, value);
+    }
+
+    char Scanner::peekNext() {
+        if (current + 1 >= source.length())
+            return '\0';
         return source[current++];
     }
 

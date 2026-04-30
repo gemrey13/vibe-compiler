@@ -25,6 +25,10 @@ namespace vibeCompiler {
         char peek();
         void string();
 
+        bool isDigit(char c);
+        void number();
+        char peekNext();
+
       private:
         const std::string& source;
         std::vector<Token> tokens;
