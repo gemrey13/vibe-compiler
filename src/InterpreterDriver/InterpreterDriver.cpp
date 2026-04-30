@@ -6,8 +6,7 @@
 
 namespace vibeCompiler {
 
-    InterpreterDriver::InterpreterDriver() {
-    }
+    InterpreterDriver::InterpreterDriver() {}
 
     int InterpreterDriver::runScript(const std::string& filename) {
         vibeCompiler::FileReader fileReader(filename);
@@ -24,21 +23,30 @@ namespace vibeCompiler {
     void InterpreterDriver::runPrompt() {
         std::string line;
         std::cout << R"(
-                        # Greetings! I am the Interactive mode for the Vibe language
-                        # inspired by Bob Nystrom's Crafting Interpreters.
-                        # http://www.craftinginterpreters.com/
-                        # Developed by Code with Gem
-                        # Type "exit" or press CTRL-D to exit.
+                Greetings! I am the Interactive mode for the Vibe language
+                    inspired by Bob Nystrom's Crafting Interpreters.
+                        http://www.craftinginterpreters.com/
+                            Developed by Code with Gem
+
+Type "exit" or press CTRL-C to exit.
                         )"
                   << std::endl;
         while (true) {
             std::cout << "> " << std::flush;
             if (!std::getline(std::cin, line)) {
+                std::cout << "\nBruh, not the ghosting... X_X" << std::endl;
                 break; // Stop if the input stream is closed
             }
-            if (line == "exit")
+            if (line == "exit") {
+                std::cout << "Valid. Catch you on the flip side!" << std::endl;
                 break;
+            }
+
+            if (line.empty())
+                continue;
+
             runCode(line);
+            errorReporter.clearErrors();
         }
     }
 

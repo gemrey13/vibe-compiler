@@ -79,6 +79,7 @@ namespace vibeCompiler {
         case ' ':
         case '\r':
         case '\t':
+        case '\0':
             break;
 
         case '\n':
@@ -103,7 +104,11 @@ namespace vibeCompiler {
             } else if (isAlpha(c)) {
                 identifier();
             } else {
-                errorReporter.setError(line, "Unexpected Character.");
+                std::string msg = "Unexpected Character: '";
+                msg += c;
+                msg += "' (Decimal ASCII: " + std::to_string((unsigned char)c) + ")";
+                errorReporter.setError(line, msg);
+                // errorReporter.setError(line, "Unexpected Character.");
             }
             break;
         }
@@ -233,4 +238,4 @@ namespace vibeCompiler {
         {"let", TokenType::LET},               // instead of "var"
         {"cookin", TokenType::COOKIN}          // instead of "while"
     };
-}
+} // namespace vibeCompiler
