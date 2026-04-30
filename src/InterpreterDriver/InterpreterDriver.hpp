@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ErrorReporter/ErrorReporter.hpp"
+
 #include <string>
 #include <vector>
 
@@ -10,9 +12,10 @@ namespace vibeCompiler {
         InterpreterDriver();
         int runScript(const std::string& filename);
         void runPrompt();
+        void runCode(const std::string& source);
 
       private:
-        void runCode(const std::string& source);
+        ErrorReporter errorReporter;
     };
 
 } // namespace vibeCompiler

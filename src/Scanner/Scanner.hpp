@@ -11,7 +11,7 @@ using vibeCompiler::TokenType;
 namespace vibeCompiler {
     class Scanner {
       public:
-        Scanner(const std::string& p_source);
+        Scanner(const std::string& p_source, ErrorReporter& errorReporter);
         std::vector<Token> scanTokens();
         void scanToken();
         bool isAtEnd() {};
@@ -23,6 +23,7 @@ namespace vibeCompiler {
       private:
         const std::string& source;
         std::vector<Token> tokens;
+        ErrorReporter& errorReporter;
 
         int start = 0;
         int current = 0;

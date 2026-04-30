@@ -1,9 +1,11 @@
 #include "Scanner/Scanner.hpp"
+#include "ErrorReporter/ErrorReporter.hpp"
 
 #include <iostream>
 
 namespace vibeCompiler {
-    Scanner::Scanner(const std::string& p_source) : source(p_source) {};
+    Scanner::Scanner(const std::string& p_source, ErrorReporter& errorReporter)
+        : source(p_source), errorReporter(errorReporter) {};
 
     std::vector<Token> Scanner::scanTokens() {
         while (!isAtEnd()) {
@@ -47,6 +49,9 @@ namespace vibeCompiler {
             break;
         case '*':
             addToken(TokenType::STAR);
+            break;
+        default:
+            errorReporter.setError(line, "Unexpected Character.");
             break;
         }
     }

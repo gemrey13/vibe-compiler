@@ -39,10 +39,17 @@ namespace vibeCompiler {
         }
     }
 
-    void runCode(const std::string& source) {
-        vibeCompiler::Scanner scanner(source);
+    void InterpreterDriver::runCode(const std::string& source) {
+        vibeCompiler::Scanner scanner(source, errorReporter);
 
         std::vector<vibeCompiler::Token> tokens = scanner.scanTokens();
+
+        // Add a check to see if errors were found during scanning
+        if (errorReporter.getStatus() == VibeStatus::ERROR) {
+            errorReporter.printError();
+            errorReporter.clearErrors(); // Important for the Interactive Prompt (REPL)
+            return;
+        }
 
         for (const auto& token : tokens) {
             std::cout << token.toString() << std::endl;
