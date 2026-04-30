@@ -9,12 +9,12 @@ namespace vibeCompiler::ErrorReporter {
         status = VibeStatus::OK;
     }
 
-    VibeStatus ErrorReporter::getStatus() {
+    VibeStatus ErrorReporter::getStatus() const {
         return status;
     }
 
-    void ErrorReporter::printError() {
-        for (auto& message : errorMessages) {
+    void ErrorReporter::printError() const {
+        for (const auto& message : errorMessages) {
             std::cerr << message << std::endl;
         }
     }

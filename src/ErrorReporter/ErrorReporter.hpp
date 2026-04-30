@@ -1,5 +1,3 @@
-#ifndef VIBECOMPILER_ERRORREPORTER_ERRORREPORTER_H
-#define VIBECOMPILER_ERRORREPORTER_ERRORREPORTER_H
 #pragma once
 
 #include <string>
@@ -11,8 +9,8 @@ namespace vibeCompiler::ErrorReporter {
     class ErrorReporter {
       public:
         void clearErrors();
-        VibeStatus getStatus();
-        void printError();
+        VibeStatus getStatus() const;
+        void printError() const;
         void setError(int line, const std::string& message);
 
       private:
@@ -21,5 +19,3 @@ namespace vibeCompiler::ErrorReporter {
     };
 
 } // namespace vibeCompiler::ErrorReporter
-
-#endif
