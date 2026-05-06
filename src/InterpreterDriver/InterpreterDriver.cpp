@@ -39,7 +39,7 @@ Type "exit" or press CTRL-C to exit.
 
         std::cout << display << std::endl;
         while (true) {
-            std::cout << "> " << std::flush;
+            std::cout << ">>> " << std::flush;
             if (!std::getline(std::cin, line)) {
                 std::cout << "\nBruh, not the ghosting... X_X" << std::endl;
                 break; // Stop if the input stream is closed
