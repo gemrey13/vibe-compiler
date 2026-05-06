@@ -28,15 +28,16 @@ namespace vibeCompiler {
 
     void InterpreterDriver::runPrompt() {
         std::string line;
-        std::cout << R"(
+        std::string display = R"(
                 Greetings! I am the Interactive mode for the Vibe language
                     inspired by Bob Nystrom's Crafting Interpreters.
                         http://www.craftinginterpreters.com/
                             Developed by Code with Gem
 
 Type "exit" or press CTRL-C to exit.
-                        )"
-                  << std::endl;
+                        )";
+
+        std::cout << display << std::endl;
         while (true) {
             std::cout << "> " << std::flush;
             if (!std::getline(std::cin, line)) {
@@ -48,6 +49,16 @@ Type "exit" or press CTRL-C to exit.
                 break;
             }
 
+            if (line == "clear" || line == "cls") {
+#ifdef _WIN32
+                system("cls");
+#else
+                system("clear");
+#endif
+
+                std::cout << display << std::endl;
+                continue;
+            }
             if (line.empty())
                 continue;
 
