@@ -81,7 +81,7 @@ Type "exit" or press CTRL-C to exit.
 
         // Temporary - print tokens.
         for (const auto& token : tokens) {
-            std::cout << token.toString() << std::endl;
+            std::cout << token.toString() << '\n';
         }
     }
 } // namespace vibeCompiler
